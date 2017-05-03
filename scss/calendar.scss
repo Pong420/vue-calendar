@@ -1,0 +1,295 @@
+$borderWidth : 1px;
+$borerStyle : solid;
+$borderColor : #ddd;
+$border : $borderWidth $borerStyle $borderColor;
+
+$Seventh : (1/7) * 100%;
+
+$timeColFirstWidth : 60px;
+$timeRowHeight : 55px;
+
+$todayBorderColor : #999;
+$todayBgColor : #f9f9f9;
+
+#calendar{
+    
+    padding: 10px;
+    color: #444;
+    max-width: 1000px;
+    margin: auto;
+    height: calc( 100% - 80px );
+    
+    display: none;
+    
+}
+
+.tableHeader{
+    
+    > div{
+        width: 100%;
+    }
+    
+    .text{
+        line-height: 20px;
+        font-size: 14px;
+        float: left;
+        padding: 5px;
+        white-space: nowrap;
+    }
+    
+    .month{
+        
+        .text{
+            width: $Seventh;
+        }
+        
+    }
+    
+    .week{
+    
+        .text{
+            
+            text-align: center;
+            
+            &:first-child{
+                width : $timeColFirstWidth;
+            }
+            
+            &:nth-child(n+2){
+                width: calc(( 100% - #{$timeColFirstWidth} ) / 7);
+            }
+                
+        }
+        
+    }
+    
+    .date .text{
+        width: 100%;
+        text-align: center;
+    }
+    
+}
+
+.tableContent {
+    
+    height: 100%;
+    
+    > div{
+        width: 100%;
+    }
+    
+}
+
+.dateObj {
+    
+    float: left;
+    position: relative;
+    width: calc( #{$Seventh} + #{$borderWidth} );
+    height: 0;
+
+    .date {
+        padding: 5%;
+    }
+
+}
+
+.timeColumn {
+    
+    float: left;
+    position: relative;
+    height: 100%;
+    border: $border;
+    border-bottom: 0px;
+    margin-bottom: -$borderWidth;
+    margin-right: -$borderWidth;
+    background-color : #FFF;
+    position: relative;
+    
+    
+    &:first-child{
+        width: $timeColFirstWidth;
+        font-size: 12px;
+        text-align: right;
+        z-index: 0 !important;
+        
+        .timeRow{
+            padding: 3px;
+        }
+        
+    }
+    
+    &:nth-child(n+2){
+        
+        width: calc(( 100% - #{$timeColFirstWidth} ) / 7);
+        
+        .timeRow{
+            
+            &:after{
+                content: "";
+                top: 50%;
+                width: 100%;
+                display: block;
+                position: absolute;
+                border-top : $borderWidth dotted $borderColor;
+            }
+            
+        }
+
+    }
+    
+    z-index: 1;
+        
+    &.today{
+        z-index: 0;
+        background-color: $todayBgColor;
+    }
+
+    
+}
+
+.timeRow {
+    
+    width: 100%;
+    height: $timeRowHeight;
+    border-bottom: $border;
+    position: relative;
+    
+}
+
+.displayMonth{
+    
+    .dateObj{
+        
+        padding-bottom: $Seventh;
+        border : $border;
+        margin-top: -$borderWidth;
+        margin-left: -$borderWidth;
+        position: relative;
+
+        &.today{
+            border-color: $todayBorderColor;
+            background-color: $todayBgColor;
+            z-index: 1;
+        }
+        
+        &.lastMonth *,
+        &.nextMonth *{
+            color: #aaa;
+        }
+        
+    }
+    
+    .noOfDateDisplay42{
+        .dateObj{
+            padding-bottom: 11.89;
+        }
+    }
+    
+}
+
+
+.tableContent > {
+    
+    .week,
+    .date{
+        
+        $paddingR : 10px;
+        
+        display: block;
+        height: 100%;
+        position: relative;
+        
+        .timeTable{
+            position: relative;   
+        }
+        
+        .overflowScroll{
+            height: 100%;
+            overflow-y: scroll;
+        }
+        
+        .borderTop,
+        .borderBottom{
+            position: absolute;
+            border-top: 1px solid #c6c6c6;
+            z-index: 2;
+        }
+        
+        .borderTop {
+            top: 0;
+        }
+        
+        .borderBottom{
+            bottom: 0;
+        }
+        
+        .redLine{
+            position: absolute;
+            background-color: #f44336;
+            left: $timeColFirstWidth;
+            height: 2px;
+            display: none;
+            
+            &:before{
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 4px 0 4px 5px;
+                border-color: transparent transparent transparent #f44336;
+                position: absolute;
+                left: -$timeColFirstWidth;
+                margin-top: -3px;
+            }
+            
+        }
+        
+    }
+    
+    .week .redLine{
+        width: calc(100% - #{$timeColFirstWidth} - 7px);
+    }
+    
+    .date .redLine{
+        width: calc(100% - #{$timeColFirstWidth} - 1px);
+    }
+    
+
+}
+
+
+
+.displayWeek{
+
+    .dateObj{
+        
+        border-top: $border;
+        border-left: $border;
+        border-bottom: $border;
+        padding-bottom: 7%;
+
+        &:nth-child(7n+7){
+            //week last day
+            border-right: $border;
+        }
+        
+    }
+
+    
+}
+
+.displayDate{
+    
+    .timeTable{
+        margin-right: 7px;
+    }
+    
+    .timeColumn{
+        
+        &:nth-child(n+2){
+            width: calc( 100% - #{$timeColFirstWidth} );
+        }
+        
+    }
+    
+}
